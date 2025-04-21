@@ -1,0 +1,137 @@
+[gd_scene load_steps=18 format=3 uid="uid://byfcr5axtmq2e"]
+
+[ext_resource type="Script" uid="uid://cmkpell4hdgbi" path="res://Scenes/plants/plant.gd" id="1_o3cyj"]
+[ext_resource type="Texture2D" uid="uid://2yteiyxnbpq3" path="res://Assets/items/Basic_Plants.png" id="2_rvdin"]
+[ext_resource type="PackedScene" uid="uid://mfeavq58ovhk" path="res://Scenes/Inventory_Item.tscn" id="3_ccu0j"]
+[ext_resource type="Texture2D" uid="uid://bncrbtixwrwwo" path="res://Assets/items/item_7.png" id="4_man82"]
+[ext_resource type="Texture2D" uid="uid://d273c8jadwqo3" path="res://Assets/items/item_9.png" id="5_man82"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jthe7"]
+atlas = ExtResource("2_rvdin")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60kwi"]
+atlas = ExtResource("2_rvdin")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g70g8"]
+atlas = ExtResource("2_rvdin")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxa8a"]
+atlas = ExtResource("2_rvdin")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtb4r"]
+atlas = ExtResource("2_rvdin")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ccu0j"]
+atlas = ExtResource("2_rvdin")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_man82"]
+atlas = ExtResource("2_rvdin")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bad7k"]
+atlas = ExtResource("2_rvdin")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2gapb"]
+atlas = ExtResource("2_rvdin")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hf86q"]
+atlas = ExtResource("2_rvdin")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j630d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jthe7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60kwi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g70g8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxa8a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtb4r")
+}],
+"loop": true,
+"name": &"plant_corn",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ccu0j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_man82")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bad7k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2gapb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hf86q")
+}],
+"loop": true,
+"name": &"plant_eggplant",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3cyj"]
+size = Vector2(15, 15)
+
+[node name="Plant" type="Node2D"]
+script = ExtResource("1_o3cyj")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_j630d")
+animation = &"plant_eggplant"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_o3cyj")
+disabled = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Inventory_Item" parent="." instance=ExtResource("3_ccu0j")]
+visible = false
+item_type = "PLANT"
+item_name = "CORN"
+item_texture = ExtResource("4_man82")
+
+[node name="Sprite2D" parent="Inventory_Item" index="1"]
+texture = ExtResource("4_man82")
+
+[node name="Inventory_Item2" parent="." instance=ExtResource("3_ccu0j")]
+visible = false
+item_type = "PLANT1"
+item_name = "EGGPLANT"
+item_texture = ExtResource("5_man82")
+
+[node name="Sprite2D" parent="Inventory_Item2" index="1"]
+texture = ExtResource("5_man82")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
+
+[editable path="Inventory_Item"]
+[editable path="Inventory_Item2"]
