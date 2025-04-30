@@ -19,17 +19,6 @@ func spawn_item(data, position):
 	get_parent().add_child(item_instance)
 	#items.add_child(item_instance)
 	
-	#const plant = preload("res://scenes/plants/plant.tscn")
-	#var item_instance = plant.instantiate()
-	#item_instance.position = position
-	#item_instance.plant_name = "CORN SEED"
-	#print("Estoy en el árbol:", is_inside_tree())
-	#print("Mi parent es:", get_parent())
-#
-	#get_parent().add_child(item_instance)
-	#print("creas")
-	
-
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if Stats.item_selected == "PICKAXE" and rock_state == "":
@@ -37,14 +26,15 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 			if durability > 0:
 				durability -= 1
 				audio.stream = load("res://sonidos/sounds/hit_rock1.ogg")
+				audio.pitch_scale = randf_range(1.0, 2.0)
 				audio.play() 
-				Stats.expend_energy(2)
+				Stats.expend_energy(1)
 				$CPUParticles2D.emitting = true
 				await get_tree().create_timer(0.5).timeout
 				$CPUParticles2D.emitting = false
 			else:
 				$Area2D/CollisionShape2D.disabled = true
-				Stats.expend_energy(2)
+				Stats.expend_energy(1)
 				$TextureRect.visible = false
 				spawn_item(Global.spawnable_items[0], position)
 				rock_state = "destroy"

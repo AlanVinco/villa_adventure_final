@@ -37,6 +37,7 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 			if durability > 0:
 				durability -= 1
 				audio.stream = load("res://sonidos/sounds/hit_wood.ogg")
+				audio.pitch_scale = randf_range(1.0, 2.0)
 				audio.play() 
 				Stats.expend_energy(2)
 				$CPUParticles2D.emitting = true

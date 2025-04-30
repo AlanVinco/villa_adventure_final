@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="New inventory"
+config/name="Villa Adventure remix"
 run/main_scene="res://Scenes/Main.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 Global="*res://Scripts/Global.gd"
 Stats="*res://Scripts/stats.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/TileMapDual/plugin.cfg")
 
 [global_group]
 
